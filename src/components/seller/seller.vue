@@ -86,7 +86,6 @@ export default {
           this._initPics()
         })
     }
-
   },
   mounted:function(){
     this.$nextTick(() => {

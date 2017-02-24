@@ -69,6 +69,9 @@ export default {
   props: {
     seller: {
       type: Object
+    },
+    ratings:{
+      type:Array
     }
   },
   data: function() {
@@ -79,14 +82,14 @@ export default {
     }
   },
   created: function() {
-    axios.get('../../../static/data.json').then((response) => {
-      this.ratings = response.data.ratings
+    // axios.get('../../../static/data.json').then((response) => {
+    //   this.ratings = response.data.ratings
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs.ratings, {
           click: true
         })
       })
-    })
+    // })
   },
   methods: {
     needShow: function(type, text) {

@@ -4,7 +4,7 @@
       <div class="menu-wrap" ref="menuWrapper">
         <ul>
           <li v-for="(item,index) in goods" class="menu-item" :class="{'current':index===currentIndex}" @click="selectMenu(index,$event)">
-            <span class="text border-1px"><span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}</span>
+            <span class="text"><span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}</span>
           </li>
         </ul>
       </div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import BScroll from 'better-scroll'
 import shopcart from 'components/shopcart/shopcart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
@@ -54,14 +54,24 @@ export default {
   props: {
     seller: {
       type: Object
+    },
+    goods:{
+      type:Array
     }
   },
   data: function() {
     return {
-      goods: [],
       listHeight: [],
       scrollY: 0,
       selectedFood:{}
+    }
+  },
+  watch: {
+    'goods'() {
+      this.$nextTick(() => {
+          this._initScroll()
+          this._calculateHeight()
+        })
     }
   },
   computed: {
@@ -89,15 +99,15 @@ export default {
   },
   created: function() {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    axios.get('../../../static/data.json').then((response) => {
-        console.log(response.data.goods)
-        this.goods = response.data.goods
-        this.$nextTick(() => {
-          this._initScroll()
-          this._calculateHeight()
-        })
-
-    })
+    // axios.get('../../../static/data.json').then((response) => {
+    //     console.log(response.data.goods)
+    //     this.goods = response.data.goods
+    // this.$nextTick(() => {
+    //   console.log(this.$refs.foodList)
+    //   this._initScroll()
+    //   this._calculateHeight()
+    // })
+    // })
   },
   methods: {
     _initScroll: function() {
@@ -109,8 +119,8 @@ export default {
         click: true
       })
       this.foodScroll.on('scroll', (pos) => {
-        this.scrollY = Math.abs(Math.round(pos.y))
-      })
+        this.scrollY = Math.abs(Math.round(pos.y));
+      });
     },
     _calculateHeight: function() {
       let foodList = this.$refs.foodList
@@ -136,7 +146,7 @@ export default {
       }
       this.selectedFood=food
       this.$refs.food.show()
-    }
+    },
   },
   components: {
     shopcart,

@@ -13,7 +13,7 @@
     </div>
   </div>
   <keep-alive>
-    <router-view :seller="seller"></router-view>
+    <router-view :seller="seller" :goods="goods" :ratings="ratings"></router-view>
   </keep-alive>
 </div>
 </template>
@@ -30,13 +30,20 @@ export default {
   },
   data: function() {
     return {
+      goods:[],
+      ratings:[],
       seller: {}
     }
   },
   created: function() {
     axios.get('../static/data.json')
       .then((response) => {
+        this.goods=response.data.goods
+        this.ratings=response.data.ratings
         this.seller = response.data.seller
+        // console.log(this.goods)
+        // console.log(this.ratings)
+        // console.log(this.seller)
       })
       .catch((error) => {
         console.log(error);

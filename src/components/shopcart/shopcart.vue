@@ -138,7 +138,6 @@ export default {
   },
   methods: {
     toggleList: function() {
-      console.log(1)
       if (!this.totalCount) {
         return
       }
