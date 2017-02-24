@@ -79,7 +79,7 @@ export default {
     }
   },
   created: function() {
-    axios.get('../../static/data.json').then((response) => {
+    axios.get('../../../static/data.json').then((response) => {
       this.ratings = response.data.ratings
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs.ratings, {

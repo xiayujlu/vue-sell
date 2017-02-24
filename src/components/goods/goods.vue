@@ -89,7 +89,7 @@ export default {
   },
   created: function() {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    axios.get('../../static/data.json').then((response) => {
+    axios.get('../../../static/data.json').then((response) => {
         console.log(response.data.goods)
         this.goods = response.data.goods
         this.$nextTick(() => {
