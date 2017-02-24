@@ -57,55 +57,54 @@ import axios from 'axios'
 import star from 'components/star/star'
 import split from 'components/split/split'
 import ratingselect from 'components/ratingselect/ratingselect'
-import {formatDate} from '../../assets/js/date.js'
+import {
+  formatDate
+} from '../../assets/js/date.js'
 import BScroll from 'better-scroll'
 
-const ERR_OK=0
-const ALL=2
+const ALL = 2
 
 export default {
-  name:'ratings',
-  props:{
-    seller:{
-      type:Object
+  name: 'ratings',
+  props: {
+    seller: {
+      type: Object
     }
   },
-  data:function(){
+  data: function() {
     return {
-      ratings:[],
-      selectType:ALL,
-      onlyContent:true,
+      ratings: [],
+      selectType: ALL,
+      onlyContent: true,
     }
   },
-  created:function(){
-    axios.get('/api/ratings').then((response)=>{
-      if (response.data.errno === ERR_OK){
-        this.ratings = response.data.data
-        this.$nextTick(() => {
-            this.scroll = new BScroll(this.$refs.ratings, {
-              click: true
-            })
-          })
-      }
+  created: function() {
+    axios.get('../../static/data.json').then((response) => {
+      this.ratings = response.data.ratings
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.ratings, {
+          click: true
+        })
+      })
     })
   },
-  methods:{
-    needShow:function(type,text){
-      if(this.onlyContent && !text){
+  methods: {
+    needShow: function(type, text) {
+      if (this.onlyContent && !text) {
         return false
       }
-      if(this.selectType===ALL){
+      if (this.selectType === ALL) {
         return true
-      }else{
-        return this.selectType===type
+      } else {
+        return this.selectType === type
       }
     },
     selectRating(type) {
-        this.selectType = type
-        this.$nextTick(() => {
-          this.scroll.refresh()
-        })
-      },
+      this.selectType = type
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    },
     toggleContent() {
       this.onlyContent = !this.onlyContent;
       this.$nextTick(() => {
@@ -113,13 +112,17 @@ export default {
       })
     }
   },
-  filters:{
-    formatDate:function(time){
-      let date=new Date(time)
-      return formatDate(date,'yyyy-MM-dd hh:mm')
+  filters: {
+    formatDate: function(time) {
+      let date = new Date(time)
+      return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
-  components:{star,split,ratingselect}
+  components: {
+    star,
+    split,
+    ratingselect
+  }
 }
 </script>
 

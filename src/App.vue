@@ -22,7 +22,7 @@
 import header from 'components/header/header'
 import 'assets/reset.css'
 import axios from 'axios'
-const ERR_OK = 0
+
 export default {
   name: 'app',
   components: {
@@ -34,11 +34,9 @@ export default {
     }
   },
   created: function() {
-    axios.get('/api/seller')
+    axios.get('../static/data.json')
       .then((response) => {
-        if (response.data.errno === ERR_OK) {
-          this.seller = response.data.data
-        }
+        this.seller = response.data.seller
       })
       .catch((error) => {
         console.log(error);

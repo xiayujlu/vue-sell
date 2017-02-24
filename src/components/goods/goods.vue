@@ -49,7 +49,6 @@ import shopcart from 'components/shopcart/shopcart'
 import cartcontrol from 'components/cartcontrol/cartcontrol'
 import food from 'components/food/food'
 
-const ERR_OK = 0
 export default {
   name: 'goods',
   props: {
@@ -90,14 +89,14 @@ export default {
   },
   created: function() {
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-    axios.get('/api/goods').then((response) => {
-      if (response.data.errno === ERR_OK) {
-        this.goods = response.data.data
+    axios.get('../../static/data.json').then((response) => {
+        console.log(response.data.goods)
+        this.goods = response.data.goods
         this.$nextTick(() => {
           this._initScroll()
           this._calculateHeight()
         })
-      }
+
     })
   },
   methods: {

@@ -259,5 +259,5 @@ export default {
       border-1px(rgba(7, 17, 27, 0.1))
       font-size: 12px
       &:last-child
-        border-none()          
+        border-none()
 </style>
